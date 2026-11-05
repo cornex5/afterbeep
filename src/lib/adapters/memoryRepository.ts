@@ -7,8 +7,21 @@ import type {
 
 type StoredCall = CallDetail & { ownerId: string };
 
-const callsByOwner = new Map<string, StoredCall[]>();
-const settingsByOwner = new Map<string, OwnerSettings>();
+type MemoryState = {
+  callsByOwner: Map<string, StoredCall[]>;
+  settingsByOwner: Map<string, OwnerSettings>;
+};
+
+const globalState = globalThis as typeof globalThis & {
+  __afterbeepMemoryState?: MemoryState;
+};
+
+const memoryState: MemoryState = (globalState.__afterbeepMemoryState ??= {
+  callsByOwner: new Map<string, StoredCall[]>(),
+  settingsByOwner: new Map<string, OwnerSettings>(),
+});
+
+const { callsByOwner, settingsByOwner } = memoryState;
 
 function makeSeedCalls(ownerId: string): StoredCall[] {
   const now = new Date();

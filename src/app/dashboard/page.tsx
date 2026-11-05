@@ -50,9 +50,14 @@ export default async function DashboardPage() {
               Forward your business number to Afterbeep or record a demo call
               below.
             </p>
-            <DemoCallRecorder />
           </div>
-        ) : (
+        ) : null}
+
+        <section className={styles.recorderSection}>
+          <DemoCallRecorder />
+        </section>
+
+        {active.length === 0 && handled.length === 0 ? null : (
           <>
             {active.length > 0 && (
               <section className={styles.callsSection}>
