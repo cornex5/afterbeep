@@ -21,6 +21,8 @@ type CallRow = {
   caller_id_number: string | null;
   transcript: string | null;
   transcript_language: string | null;
+  is_silent_or_empty: boolean;
+  extraction_failed: boolean;
 };
 
 type CardRow = {
@@ -31,8 +33,6 @@ type CardRow = {
   suggested_reply: string;
   handled_at: string | null;
   expires_at: string;
-  is_silent_or_empty: boolean;
-  extraction_failed: boolean;
 };
 
 type JoinedRow = CallRow & CardRow;
@@ -74,6 +74,7 @@ type SeedCall = {
   transcriptLanguage: string;
   transcript: string;
   suggestedReply: string;
+  receivedMinutesAgo: number;
 };
 
 function makeSeedData(ownerId: string): SeedCall[] {
@@ -88,11 +89,12 @@ function makeSeedData(ownerId: string): SeedCall[] {
       ownerId,
       callerName: "Thomas Berger",
       callbackNumber: "+49 30 5550 0112",
-      callerIdNumber: "+4930555001 12",
+      callerIdNumber: "+493055500112",
       reason: "Burst pipe in the basement, water coming in fast",
       urgency: "high",
       handledAt: null,
       expiresAt: expires(28),
+      receivedMinutesAgo: 49,
       transcriptLanguage: "de",
       transcript:
         "Hallo, hier ist Thomas Berger. Ich habe ein ernstes Problem: in meinem Keller platzt gerade ein Rohr und Wasser quillt heraus. Bitte rufen Sie mich so schnell wie moeglich zurueck. Meine Nummer ist 030 5550 0112. Das ist sehr dringend.",
@@ -103,11 +105,12 @@ function makeSeedData(ownerId: string): SeedCall[] {
       ownerId,
       callerName: "Sandra Koch",
       callbackNumber: "+49 30 5550 0234",
-      callerIdNumber: "+49305550023 4",
+      callerIdNumber: "+493055500234",
       reason: "Boiler showing error code E4, no heating or hot water",
       urgency: "high",
       handledAt: null,
       expiresAt: expires(29),
+      receivedMinutesAgo: 63,
       transcriptLanguage: "de",
       transcript:
         "Guten Tag, mein Name ist Sandra Koch. Meine Heizung zeigt den Fehlercode E4 an und ich habe weder Heizung noch warmes Wasser. Kinder im Haus. Telefon: 030 5550 0234. Bitte bald melden.",
@@ -123,6 +126,7 @@ function makeSeedData(ownerId: string): SeedCall[] {
       urgency: "normal",
       handledAt: null,
       expiresAt: expires(27),
+      receivedMinutesAgo: 125,
       transcriptLanguage: "en",
       transcript:
         "Hi, this is Marcus Webb calling. I'd like to get a quote for rewiring my kitchen. I'm doing a full renovation and need the electrical sorted out. My number is 1 555 0187. No rush, just whenever you get a chance.",
@@ -138,6 +142,7 @@ function makeSeedData(ownerId: string): SeedCall[] {
       urgency: "normal",
       handledAt: null,
       expiresAt: expires(26),
+      receivedMinutesAgo: 185,
       transcriptLanguage: "en",
       transcript:
         "Hello, I need to reschedule my dentist appointment. I have a Tuesday at three pm and I can't make it. I didn't leave my number but I'll call back. Thanks.",
@@ -148,11 +153,12 @@ function makeSeedData(ownerId: string): SeedCall[] {
       ownerId,
       callerName: "DHL Delivery",
       callbackNumber: "+49 30 5550 0800",
-      callerIdNumber: "+4930555008 00",
+      callerIdNumber: "+493055500800",
       reason: "Missed delivery window, parcel at depot, ref 7741882",
       urgency: "low",
       handledAt: null,
       expiresAt: expires(3),
+      receivedMinutesAgo: 480,
       transcriptLanguage: "de",
       transcript:
         "Hallo, hier spricht der Kundendienst von DHL. Wir konnten Ihr Paket heute nicht zustellen. Das Paket liegt bei unserer Filiale. Sendungsnummer 7741882. Bitte melden Sie sich unter 030 5550 0800.",
@@ -166,8 +172,9 @@ function makeSeedData(ownerId: string): SeedCall[] {
       callerIdNumber: "+15550142",
       reason: "Annual boiler service booking",
       urgency: "low",
-      handledAt: ago(900),
+      handledAt: ago(600),
       expiresAt: expires(25),
+      receivedMinutesAgo: 700,
       transcriptLanguage: "en",
       transcript:
         "Hi, this is Priya Sharma. I'd like to book the annual boiler service we talked about last year. My number is 1 555 0142. Mornings work best for me. Thank you.",
@@ -181,8 +188,9 @@ function makeSeedData(ownerId: string): SeedCall[] {
       callerIdNumber: "+15550163",
       reason: "Leaking tap in the bathroom, not urgent",
       urgency: "low",
-      handledAt: ago(2400),
+      handledAt: ago(900),
       expiresAt: expires(20),
+      receivedMinutesAgo: 1100,
       transcriptLanguage: "en",
       transcript:
         "Hello, James Okafor here. Got a tap dripping in the bathroom. Not urgent but would like it sorted in the next couple of weeks. Number is 1 555 0163. Cheers.",
@@ -200,11 +208,10 @@ export function createSupabaseRepository(): CallsRepository {
       const { data, error } = await client
         .from("calls")
         .select(
-          `id, received_at, caller_id_number,
+          `id, received_at, caller_id_number, transcript_language,
            message_cards!inner(
              caller_name, callback_number, reason, urgency,
-             suggested_reply, handled_at, expires_at,
-             is_silent_or_empty, extraction_failed
+             suggested_reply, handled_at, expires_at
            )`,
         )
         .eq("owner_id", ownerId)
@@ -226,7 +233,9 @@ export function createSupabaseRepository(): CallsRepository {
             received_at: r["received_at"] as string,
             caller_id_number: r["caller_id_number"] as string | null,
             transcript: null,
-            transcript_language: null,
+            transcript_language: (r["transcript_language"] as string | null) ?? null,
+            is_silent_or_empty: false,
+            extraction_failed: false,
             ...card,
           }),
         ];
@@ -241,10 +250,10 @@ export function createSupabaseRepository(): CallsRepository {
         .from("calls")
         .select(
           `id, received_at, caller_id_number, transcript, transcript_language,
+           is_silent_or_empty, extraction_failed,
            message_cards!inner(
              caller_name, callback_number, reason, urgency,
-             suggested_reply, handled_at, expires_at,
-             is_silent_or_empty, extraction_failed
+             suggested_reply, handled_at, expires_at
            )`,
         )
         .eq("id", callId)
@@ -265,6 +274,8 @@ export function createSupabaseRepository(): CallsRepository {
         transcript: (r["transcript"] as string | null) ?? null,
         transcript_language:
           (r["transcript_language"] as string | null) ?? null,
+        is_silent_or_empty: r["is_silent_or_empty"] as boolean,
+        extraction_failed: r["extraction_failed"] as boolean,
         ...card,
       });
     },
@@ -317,7 +328,6 @@ export function createSupabaseRepository(): CallsRepository {
       await client
         .from("calls")
         .delete()
-        .eq("owner_id", ownerId)
         .lt("received_at", cutoff);
 
       await client
@@ -332,7 +342,7 @@ export function createSupabaseRepository(): CallsRepository {
           .insert({
             owner_id: seed.ownerId,
             caller_id_number: seed.callerIdNumber,
-            received_at: new Date(Date.now() - Math.random() * 1000).toISOString(),
+            received_at: new Date(Date.now() - seed.receivedMinutesAgo * 60 * 1000).toISOString(),
             status: "delivered",
             transcript: seed.transcript,
             transcript_language: seed.transcriptLanguage,
