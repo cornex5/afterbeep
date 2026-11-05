@@ -6,9 +6,9 @@ Work through these tasks in sequence. Each task is small enough to complete and 
 
 ---
 
-- [ ] **T01**: Create the Supabase migration for the `calls` table with all columns defined in design.md (REQ-01)
+- [x] **T01**: Create the Supabase migration for the `calls` table with all columns defined in design.md (REQ-01)
 
-- [ ] **T02**: Create the Supabase migration for the `message_cards` table with all columns defined in design.md (REQ-06)
+- [x] **T02**: Create the Supabase migration for the `message_cards` table with all columns defined in design.md (REQ-06)
 
 - [x] **T03**: Define the `MessageCardSchema` Zod schema and `MessageCard` TypeScript type in `src/lib/schema.ts` (REQ-06, REQ-07)
 
@@ -30,22 +30,22 @@ Work through these tasks in sequence. Each task is small enough to complete and 
 
 - [x] **T12**: Write a unit test for `extractCard` with a 2000-word synthetic rambling transcript to confirm reason is extracted and summarised (REQ-08)
 
-- [ ] **T13**: Implement `src/lib/email.ts` with a `renderCardEmail(card: MessageCard, callMeta: CallMeta): string` function that returns the HTML email body (REQ-11)
+- [x] **T13**: Implement `src/lib/email.ts` with a `renderCardEmail(card: MessageCard, callMeta: CallMeta): RenderedEmail` function that returns subject, HTML body, and plain text (REQ-11)
 
-- [ ] **T14**: Write unit tests for `renderCardEmail` covering: normal card, all-unknown fallback card, high-urgency card subject line, extraction-failed card with transcript attachment note (REQ-06, REQ-07, REQ-10, REQ-11)
+- [x] **T14**: Write unit tests for `renderCardEmail` covering: normal card, all-unknown fallback card, high-urgency card subject line, extraction-failed card with transcript attachment note (REQ-06, REQ-07, REQ-10, REQ-11)
 
-- [ ] **T15**: Implement the ingest API route at `src/app/api/calls/ingest/route.ts`: validate content type and size, write call record, upload audio to Storage, enqueue transcription (REQ-01, REQ-09)
+- [x] **T15**: Implement the ingest API route at `src/app/api/calls/ingest/route.ts`: validate content type and size, write call record, upload audio to Storage, enqueue transcription (REQ-01, REQ-09)
 
-- [ ] **T16**: Implement the transcription worker in `src/app/api/calls/transcribe/route.ts` or as a Supabase Edge Function: download audio, call `transcribeAudio`, store transcript, delete audio, enqueue extraction (REQ-03, REQ-04, REQ-09, REQ-12)
+- [x] **T16**: Superseded by `runPipeline` architecture: transcription stage is a step inside `src/lib/pipeline.ts` (REQ-03, REQ-04, REQ-09, REQ-12)
 
-- [ ] **T17**: Implement the extraction worker: read transcript, call `extractCard`, write message card to database, enqueue email delivery (REQ-05, REQ-06, REQ-07, REQ-08, REQ-10)
+- [x] **T17**: Superseded by `runPipeline` architecture: extraction stage is a step inside `src/lib/pipeline.ts` (REQ-05, REQ-06, REQ-07, REQ-08, REQ-10)
 
-- [ ] **T18**: Implement the email delivery worker: read card and call metadata, call `renderCardEmail`, send via SMTP provider, record delivery timestamp (REQ-11)
+- [x] **T18**: Superseded by `runPipeline` architecture: email delivery stage is a step inside `src/lib/pipeline.ts` (REQ-11)
 
-- [ ] **T19**: Add pipeline latency logging: record timestamps at each stage transition and log when end-to-end exceeds 30 seconds (REQ-11)
+- [x] **T19**: Add pipeline latency logging: record timestamps at each stage transition and log when end-to-end exceeds 30 seconds (REQ-11)
 
-- [ ] **T20**: Write an integration test that runs the full pipeline with a short English audio fixture and asserts: audio deleted, card written, all fields present, urgency is valid enum value (REQ-01, REQ-03, REQ-05, REQ-06, REQ-07, REQ-12)
+- [x] **T20**: Write an integration test that runs the full pipeline with a short English audio fixture and asserts: audio deleted, card written, all fields present, urgency is valid enum value (REQ-01, REQ-03, REQ-05, REQ-06, REQ-07, REQ-12)
 
-- [ ] **T21**: Write an integration test for the silent/empty audio path: zero-byte input produces an all-unknown card with `isSilentOrEmpty: true` (REQ-02)
+- [x] **T21**: Write an integration test for the silent/empty audio path: zero-byte input produces an all-unknown card with `isSilentOrEmpty: true` (REQ-02)
 
-- [ ] **T22**: Write an integration test for the transcription failure path: mocked API error produces a "transcription-failed" call record and a failure email (REQ-09)
+- [x] **T22**: Write an integration test for the transcription failure path: mocked API error produces a "transcription-failed" call record and a failure email (REQ-09)
