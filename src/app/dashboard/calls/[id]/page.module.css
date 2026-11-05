@@ -31,7 +31,7 @@
 
 .cassetteBody {
   display: grid;
-  grid-template-columns: 8px 100px 1fr;
+  grid-template-columns: 8px 124px 1fr;
   gap: 0;
   background-color: var(--putty);
   border-radius: var(--radius-card);
@@ -211,7 +211,7 @@
 
 @media (max-width: 540px) {
   .cassetteBody {
-    grid-template-columns: 6px 70px 1fr;
+    grid-template-columns: 6px 124px 1fr;
   }
 
   .fieldRow {
