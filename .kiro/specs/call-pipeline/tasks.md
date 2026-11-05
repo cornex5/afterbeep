@@ -10,25 +10,25 @@ Work through these tasks in sequence. Each task is small enough to complete and 
 
 - [ ] **T02**: Create the Supabase migration for the `message_cards` table with all columns defined in design.md (REQ-06)
 
-- [ ] **T03**: Define the `MessageCardSchema` Zod schema and `MessageCard` TypeScript type in `src/lib/schema.ts` (REQ-06, REQ-07)
+- [x] **T03**: Define the `MessageCardSchema` Zod schema and `MessageCard` TypeScript type in `src/lib/schema.ts` (REQ-06, REQ-07)
 
-- [ ] **T04**: Write property-based tests for the schema in `src/lib/schema.test.ts`: P2 (all fields present), P3 (urgency values), P6 (fallback card validity) (REQ-06, REQ-07, REQ-10)
+- [x] **T04**: Write property-based tests for the schema in `src/lib/schema.test.ts`: P2 (all fields present), P3 (urgency values), P6 (fallback card validity) (REQ-06, REQ-07, REQ-10)
 
-- [ ] **T05**: Implement `src/lib/audio.ts` with a `classifySilence(audioBuffer: Buffer): boolean` function that returns true for empty or sub-threshold audio (REQ-02)
+- [x] **T05**: Implement `src/lib/audio.ts` with a `classifySilence(audioBuffer: Buffer): boolean` function that returns true for empty or sub-threshold audio (REQ-02)
 
-- [ ] **T06**: Write unit tests for `classifySilence` covering: zero-byte buffer, below-threshold buffer, normal audio buffer (REQ-02)
+- [x] **T06**: Write unit tests for `classifySilence` covering: zero-byte buffer, below-threshold buffer, normal audio buffer (REQ-02)
 
-- [ ] **T07**: Implement `src/lib/transcribe.ts` with a `transcribeAudio(audioBuffer: Buffer): Promise<TranscriptionResult>` function that calls the Whisper-class API and returns the transcript text and detected language (REQ-03, REQ-04)
+- [x] **T07**: Implement `src/lib/transcribe.ts` with a `transcribeAudio(audioBuffer: Buffer): Promise<TranscriptionResult>` function that calls the Whisper-class API and returns the transcript text and detected language (REQ-03, REQ-04)
 
-- [ ] **T08**: Write unit tests for `transcribeAudio` using a mocked API client: success with English, success with German, API error triggers correct error type (REQ-03, REQ-04, REQ-09)
+- [x] **T08**: Write unit tests for `transcribeAudio` using a mocked API client: success with English, success with German, API error triggers correct error type (REQ-03, REQ-04, REQ-09)
 
-- [ ] **T09**: Implement `src/lib/extract.ts` with an `extractCard(transcript: string, callerIdNumber: string | null): Promise<MessageCard>` function including the retry logic and fallback card (REQ-05, REQ-06, REQ-07, REQ-08, REQ-10)
+- [x] **T09**: Implement `src/lib/extract.ts` with an `extractCard(transcript: string, callerIdNumber: string | null): Promise<MessageCard>` function including the retry logic and fallback card (REQ-05, REQ-06, REQ-07, REQ-08, REQ-10)
 
-- [ ] **T10**: Write the extraction prompt as a template string in `src/lib/extractionPrompt.ts` with three few-shot examples (English normal, German, no-number) (REQ-05, REQ-06, REQ-07)
+- [x] **T10**: Write the extraction prompt as a template string in `src/lib/extractionPrompt.ts` with three few-shot examples (English normal, German, no-number) (REQ-05, REQ-06, REQ-07)
 
-- [ ] **T11**: Write property-based tests for `extractCard` covering: P1 (no invented numbers), P3 (urgency enum), P7 (German transcripts), P8 (long transcript reason length) (REQ-05, REQ-07, REQ-04, REQ-08)
+- [x] **T11**: Write property-based tests for `extractCard` covering: P1 (no invented numbers), P3 (urgency enum), P7 (German transcripts), P8 (long transcript reason length) (REQ-05, REQ-07, REQ-04, REQ-08)
 
-- [ ] **T12**: Write a unit test for `extractCard` with a 2000-word synthetic rambling transcript to confirm reason is extracted and summarised (REQ-08)
+- [x] **T12**: Write a unit test for `extractCard` with a 2000-word synthetic rambling transcript to confirm reason is extracted and summarised (REQ-08)
 
 - [ ] **T13**: Implement `src/lib/email.ts` with a `renderCardEmail(card: MessageCard, callMeta: CallMeta): string` function that returns the HTML email body (REQ-11)
 
