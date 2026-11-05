@@ -1,0 +1,27 @@
+# Demo Session: Tasks
+
+- [x] Create .kiro/specs/demo-session/requirements.md
+- [x] Create .kiro/specs/demo-session/design.md
+- [x] Create .kiro/specs/demo-session/tasks.md
+- [x] Implement src/lib/demoSession.ts (signOwnerId, verifyCookieValue)
+- [x] Write src/lib/demoSession.test.ts (vitest tests)
+- [x] Implement src/lib/session.ts (getOwnerId, server-only)
+- [x] Implement src/app/demo/start/route.ts (GET /demo/start)
+- [x] Add seedDemo to CallsRepository type in src/lib/repository.ts
+- [x] Update src/lib/adapters/memoryRepository.ts (seedDemo, per-owner keying)
+- [x] Update src/lib/adapters/supabaseRepository.ts (seedDemo, owner_settings table)
+- [x] Add src/lib/repositoryFactory.ts (no change needed, seedDemo on returned object)
+- [x] Add supabase/migrations/0003_owner_settings.sql
+- [x] Implement src/lib/wavEncoder.ts (downsample, floatTo16BitPCM, encodeWav)
+- [x] Write src/lib/wavEncoder.test.ts (unit + property tests)
+- [x] Implement src/components/DemoCallRecorder.tsx
+- [x] Add src/components/DemoCallRecorder.module.css
+- [x] Implement src/app/api/demo/call/route.ts (POST)
+- [x] Implement src/app/api/demo/call/[id]/route.ts (GET)
+- [x] Harden src/app/api/calls/ingest/route.ts (x-ingest-secret, strip content type params)
+- [x] Update src/app/dashboard/page.tsx (remove OWNER_ID, add DemoCallRecorder)
+- [x] Update src/app/dashboard/calls/[id]/page.tsx (remove OWNER_ID)
+- [x] Update src/app/dashboard/settings/page.tsx (remove OWNER_ID)
+- [x] Update src/app/actions.ts (remove OWNER_ID)
+- [x] Update src/app/page.tsx (change demo link to /demo/start)
+- [x] Create .env.example

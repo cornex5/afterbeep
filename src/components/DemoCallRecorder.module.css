@@ -1,0 +1,129 @@
+.recorder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 2rem 1.5rem;
+  background-color: var(--putty);
+  border: 2px solid var(--tape);
+  border-radius: var(--radius-card);
+  max-width: 400px;
+  width: 100%;
+}
+
+.reelsRow {
+  display: flex;
+  justify-content: center;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-variation-settings: "wght" 500;
+  font-size: 0.85rem;
+  color: var(--tape);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.timerRow {
+  font-family: var(--font-mono);
+  font-variation-settings: "wght" 400;
+  font-size: 1.5rem;
+  color: var(--smoke);
+  letter-spacing: 0.05em;
+}
+
+.recordButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--record);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-button);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 100, "wght" 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-medium);
+  min-width: 160px;
+}
+
+.recordButton:hover {
+  background-color: var(--tape);
+}
+
+.recordButton:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.recordButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stopButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--smoke);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-button);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 100, "wght" 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-medium);
+  min-width: 160px;
+}
+
+.stopButton:hover {
+  background-color: var(--tape);
+}
+
+.stopButton:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.statusLine {
+  font-size: 0.9rem;
+  color: var(--tape);
+  text-align: center;
+}
+
+.errorLine {
+  font-size: 0.9rem;
+  color: var(--record);
+  text-align: center;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--record);
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.dotBlink {
+  animation: dotBlink 1s step-start infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dotBlink {
+    animation: none;
+  }
+}

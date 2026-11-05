@@ -30,4 +30,5 @@ export type CallsRepository = {
   markHandled(callId: string, ownerId: string, handled: boolean): Promise<void>;
   getSettings(ownerId: string): Promise<OwnerSettings>;
   saveSettings(ownerId: string, settings: OwnerSettings): Promise<void>;
+  seedDemo(ownerId: string): Promise<void>;
 };

@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { after } from "next/server";
 import { runPipeline } from "@/lib/pipeline";
@@ -15,7 +16,23 @@ const ALLOWED_CONTENT_TYPES = new Set([
 
 const MAX_AUDIO_BYTES = 10 * 1024 * 1024;
 
+function checkIngestSecret(request: NextRequest): boolean {
+  const secret = process.env["INGEST_SECRET"] ?? "";
+  const provided = request.headers.get("x-ingest-secret") ?? "";
+  if (secret.length === 0) return false;
+  if (secret.length !== provided.length) return false;
+  try {
+    return timingSafeEqual(Buffer.from(secret), Buffer.from(provided));
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  if (!checkIngestSecret(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const contentType = request.headers.get("content-type") ?? "";
   const baseContentType = contentType.split(";")[0]?.trim() ?? "";
 
@@ -38,7 +55,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "Missing audio field" }, { status: 400 });
   }
 
-  const audioContentType = audioField.type;
+  const rawAudioType = audioField.type;
+  const audioContentType = rawAudioType.split(";")[0]?.trim() ?? "";
   if (!ALLOWED_CONTENT_TYPES.has(audioContentType)) {
     return NextResponse.json(
       {

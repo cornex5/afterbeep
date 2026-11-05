@@ -13,7 +13,7 @@ export default function LandingPage() {
             and emails you the card in seconds.
           </p>
           <div className={styles.heroCta}>
-            <Link href="/dashboard?demo=1" className={styles.primaryButton}>
+            <Link href="/demo/start" className={styles.primaryButton}>
               Try the demo
             </Link>
             <a href="#how-it-works" className={styles.quietLink}>

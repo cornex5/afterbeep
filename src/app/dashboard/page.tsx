@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { getRepository } from "@/lib/repositoryFactory";
+import { getOwnerId } from "@/lib/session";
 import { sortCalls, countUnhandled, countUrgent } from "@/lib/ui";
 import LedCounter from "@/components/LedCounter";
 import CassetteCard from "@/components/CassetteCard";
+import DemoCallRecorder from "@/components/DemoCallRecorder";
 import styles from "./page.module.css";
 
-const OWNER_ID = "demo";
-
 export default async function DashboardPage() {
+  const ownerId = await getOwnerId();
   const repo = getRepository();
-  const calls = await repo.listCalls(OWNER_ID);
+  const calls = await repo.listCalls(ownerId);
   const sorted = sortCalls(calls);
   const unhandled = countUnhandled(calls);
   const urgent = countUrgent(calls);
@@ -46,11 +47,10 @@ export default async function DashboardPage() {
           <div className={styles.emptyState}>
             <p>No calls yet.</p>
             <p>
-              Forward your business number to Afterbeep or try the demo call.
+              Forward your business number to Afterbeep or record a demo call
+              below.
             </p>
-            <Link href="/dashboard?demo=1" className={styles.demoButton}>
-              Try a demo call
-            </Link>
+            <DemoCallRecorder />
           </div>
         ) : (
           <>

@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { getRepository } from "@/lib/repositoryFactory";
+import { getOwnerId } from "@/lib/session";
 import SettingsForm from "./SettingsForm";
 import styles from "./page.module.css";
 
-const OWNER_ID = "demo";
-
 export default async function SettingsPage() {
+  const ownerId = await getOwnerId();
   const repo = getRepository();
-  const settings = await repo.getSettings(OWNER_ID);
+  const settings = await repo.getSettings(ownerId);
 
   return (
     <div className={styles.layout}>

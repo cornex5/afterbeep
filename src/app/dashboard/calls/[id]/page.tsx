@@ -1,22 +1,22 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getRepository } from "@/lib/repositoryFactory";
+import { getOwnerId } from "@/lib/session";
 import { relativeTime, languageLabel } from "@/lib/ui";
 import CassetteReels from "@/components/CassetteReels";
 import MarkHandledButton from "@/components/MarkHandledButton";
 import CopyButton from "@/components/CopyButton";
 import styles from "./page.module.css";
 
-const OWNER_ID = "demo";
-
 type Props = {
   params: Promise<{ id: string }>;
 };
 
 export default async function CallDetailPage({ params }: Props) {
+  const ownerId = await getOwnerId();
   const { id } = await params;
   const repo = getRepository();
-  const call = await repo.getCall(id, OWNER_ID);
+  const call = await repo.getCall(id, ownerId);
 
   if (!call) {
     notFound();
