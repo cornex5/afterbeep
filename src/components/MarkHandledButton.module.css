@@ -1,0 +1,41 @@
+.button {
+  display: inline-block;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--radius-button);
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 100, "wght" 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color var(--transition-medium), color var(--transition-medium);
+  border: 2px solid transparent;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.mark {
+  background-color: var(--smoke);
+  color: var(--paper);
+}
+
+.mark:hover:not(:disabled) {
+  background-color: var(--tape);
+}
+
+.unmark {
+  background-color: transparent;
+  color: var(--smoke);
+  border-color: var(--putty);
+}
+
+.unmark:hover:not(:disabled) {
+  border-color: var(--tape);
+  color: var(--tape);
+}

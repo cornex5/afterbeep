@@ -1,0 +1,37 @@
+.layout {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  padding: 1rem 1.5rem;
+  background-color: var(--putty);
+  border-bottom: 2px solid var(--tape);
+}
+
+.backLink {
+  font-size: 0.9rem;
+  color: var(--tape);
+}
+
+.main {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.heading {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-variation-settings: "wdth" 100, "wght" 700;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--tape);
+  max-width: 52ch;
+}

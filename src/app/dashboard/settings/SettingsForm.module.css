@@ -1,0 +1,91 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 480px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  font-variation-settings: "wght" 500;
+  color: var(--smoke);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--tape);
+}
+
+.input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-family: var(--font-mono);
+  font-variation-settings: "wght" 400;
+  font-size: 0.95rem;
+  color: var(--smoke);
+  background-color: var(--paper);
+  border: 1.5px solid var(--putty);
+  border-radius: var(--radius-button);
+  transition: border-color var(--transition-medium);
+}
+
+.input:hover {
+  border-color: var(--tape);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 25%, transparent);
+}
+
+.formFooter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.saveButton {
+  display: inline-block;
+  background-color: var(--smoke);
+  color: var(--paper);
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--radius-button);
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 100, "wght" 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color var(--transition-medium);
+  border: none;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: var(--tape);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.saveButton:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.confirmation {
+  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  font-variation-settings: "wght" 400;
+  color: var(--tape);
+}
