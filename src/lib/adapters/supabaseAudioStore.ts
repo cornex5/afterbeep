@@ -21,7 +21,7 @@ export function createSupabaseAudioStore(): AudioStore {
     async put(callId: string, audio: Buffer): Promise<void> {
       const { error } = await client.storage
         .from(BUCKET)
-        .upload(audioPath(callId), audio, { upsert: true });
+        .upload(audioPath(callId), audio, { upsert: true, contentType: "audio/wav" });
       if (error) throw new Error(error.message);
     },
 
