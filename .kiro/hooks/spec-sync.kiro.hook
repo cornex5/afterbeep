@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Keep specs honest",
+  "description": "When a spec requirements file changes, check that design.md and tasks.md still match it.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [".kiro/specs/*/requirements.md"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A requirements file changed. Compare it with the design.md and tasks.md in the same folder and list requirements that have no design coverage or no task. Update design.md and tasks.md so every requirement is covered, without touching completed tasks."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Extraction regression check",
+  "description": "When the extraction prompt or schema changes, re-run the extraction and schema tests and report any change in the fallback or callback number guard behavior.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["src/lib/extractionPrompt.ts", "src/lib/extract.ts", "src/lib/schema.ts"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The extraction prompt, extractor or schema changed. Run `pnpm vitest run src/lib/extract src/lib/schema` and read the results. If any test fails, fix the code or the test so that the callback number guard (never invent a number) and the fallback card still hold. Report only failures."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "House rules on save",
+  "description": "After a source file is saved, check it against the Afterbeep house rules: no comments in code or CSS, no long dash characters, no any.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.css", "tests/**/*.ts"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The file that was just saved must follow .kiro/steering/code.md. Check it for comments of any kind (including CSS comments), the characters U+2014 and U+2013, the any type, and unused imports. Fix every violation in place and say nothing if the file is clean."
+  }
+}

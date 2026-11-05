@@ -1,0 +1,16 @@
+{
+  "name": "call-pipeline",
+  "description": "Works only on the call pipeline: audio checks, transcription, extraction, mail and the ingest routes. Cannot touch UI or migrations.",
+  "prompt": "You maintain the Afterbeep call pipeline. Read .kiro/steering and .kiro/specs/call-pipeline before changing anything. Never invent a callback number: it must appear in the transcript or caller ID. Keep runPipeline pure and inject every side effect through ports. No comments in code, no long dashes.",
+  "tools": ["fs_read", "fs_write"],
+  "allowedTools": ["fs_read"],
+  "toolsSettings": {
+    "fs_write": {
+      "allowedPaths": ["src/lib/**", "src/app/api/**", "tests/**"]
+    }
+  },
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "file://.kiro/specs/call-pipeline/**/*.md"
+  ]
+}
