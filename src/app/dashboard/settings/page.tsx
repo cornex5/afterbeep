@@ -22,7 +22,8 @@ export default async function SettingsPage() {
         <p className={styles.description}>
           Afterbeep sends a message card to your email within seconds of every
           call ending. Update the address below to change where cards are
-          delivered.
+          delivered. On the public demo, cards are only emailed to addresses
+          on the demo allowlist.
         </p>
         <SettingsForm settings={settings} />
       </main>

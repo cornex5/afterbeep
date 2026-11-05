@@ -7,6 +7,8 @@ import { createSupabaseCallStore } from "@/lib/adapters/supabaseCallStore";
 import { createSupabaseAudioStore } from "@/lib/adapters/supabaseAudioStore";
 import { systemClock } from "@/lib/adapters/systemClock";
 import { getRepository } from "@/lib/repositoryFactory";
+import { createResendMailer } from "@/lib/adapters/resendMailer";
+import { isMailAllowed, parseAllowlist } from "@/lib/demoMail";
 import type { Mailer } from "@/lib/ports";
 
 const COOKIE_NAME = "ab_demo";
@@ -117,7 +119,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const audioBuffer = Buffer.from(await audioField.arrayBuffer());
-  const notificationEmail = "";
+  const settings = await getRepository().getSettings(ownerId);
+  const allowlist = parseAllowlist(process.env["DEMO_MAIL_ALLOWLIST"]);
+  const canMail = isMailAllowed(settings.notificationEmail, allowlist);
+  const notificationEmail = canMail ? settings.notificationEmail : "";
 
   after(async () => {
     await runPipeline(
@@ -125,7 +130,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       {
         callStore,
         audioStore: createSupabaseAudioStore(),
-        mailer: noopMailer(),
+        mailer: canMail ? createResendMailer() : noopMailer(),
         clock: systemClock,
       },
     );

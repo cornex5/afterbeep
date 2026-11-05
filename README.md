@@ -43,6 +43,7 @@ With `DEMO_MEMORY=1` or without `SUPABASE_URL` the app uses an in-memory reposit
 | ANTHROPIC_API_KEY, EXTRACT_MODEL | Card extraction |
 | RESEND_API_KEY, MAIL_FROM | Email delivery |
 | DEMO_SESSION_SECRET | Signs the demo session cookie, required in production |
+| DEMO_MAIL_ALLOWLIST | Comma separated addresses the public demo may email, empty means no demo mail |
 | INGEST_SECRET | Shared secret for the telephony ingest route, required in production |
 
 Apply the SQL files in `supabase/migrations` in order. Row level security is on and there are no public policies: all access goes through the server.
