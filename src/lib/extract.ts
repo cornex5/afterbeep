@@ -29,7 +29,7 @@ type AnthropicLike = {
 function createDefaultClient(): ExtractionClient {
   return {
     async complete(messages: ExtractionClientMessage[]): Promise<ExtractionClientResponse> {
-      const model = process.env["EXTRACT_MODEL"] ?? "claude-3-5-haiku-20241022";
+      const model = process.env["EXTRACT_MODEL"] ?? "claude-haiku-5-5";
       const { Anthropic } = await import("@anthropic-ai/sdk");
       const anthropic = new Anthropic() as AnthropicLike;
       const response = await anthropic.messages.create({

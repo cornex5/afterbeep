@@ -45,6 +45,7 @@ function createDefaultClient(): TranscribeClient {
       bytes.set(audioBuffer);
       const blob = new Blob([bytes], { type: "audio/wav" });
       form.append("file", blob, "audio.wav");
+      form.append("model", process.env["TRANSCRIBE_MODEL"] ?? "whisper-large-v3-turbo");
       form.append("response_format", "verbose_json");
 
       let response: Response;
