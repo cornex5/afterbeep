@@ -4,9 +4,10 @@ import styles from "./SevenSegment.module.css";
 type Props = {
   segments: DigitSegments;
   lit?: boolean;
+  scale?: number;
 };
 
-export default function SevenSegment({ segments, lit = true }: Props) {
+export default function SevenSegment({ segments, lit = true, scale = 1 }: Props) {
   const w = 20;
   const h = 36;
   const sw = 3;
@@ -20,8 +21,8 @@ export default function SevenSegment({ segments, lit = true }: Props) {
   return (
     <svg
       viewBox={`0 0 ${w} ${h}`}
-      width={w}
-      height={h}
+      width={w * scale}
+      height={h * scale}
       aria-hidden="true"
       className={styles.digit}
     >

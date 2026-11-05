@@ -9,8 +9,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  min-height: 80dvh;
-  padding: 4rem 0 3rem;
+  min-height: 60dvh;
+  padding: 2.5rem 0 2rem;
 }
 
 .heroText {

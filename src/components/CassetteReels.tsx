@@ -10,7 +10,7 @@ export default function CassetteReels({ spinning = false, size = 40 }: Props) {
     <div
       className={styles.reels}
       aria-hidden="true"
-      style={{ gap: Math.round(size * 0.5) + "px" }}
+      style={{ gap: Math.round(size * 0.6) + "px" }}
     >
       <Reel size={size} spinning={spinning} />
       <Reel size={size} spinning={spinning} />

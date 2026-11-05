@@ -13,12 +13,12 @@ export default function MachineIllustration({ unhandledCount = 3 }: Props) {
         <div className={styles.topBar}>
           <span className={styles.brand}>afterbeep</span>
           <div className={styles.ledArea}>
-            <LedCounter count={unhandledCount} />
+            <LedCounter count={unhandledCount} scale={1} />
           </div>
         </div>
 
         <div className={styles.deckWindow}>
-          <CassetteReels size={56} />
+          <CassetteReels size={64} />
           <div className={styles.tapeBar} />
         </div>
 

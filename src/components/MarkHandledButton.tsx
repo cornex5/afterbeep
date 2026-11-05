@@ -7,9 +7,10 @@ import styles from "./MarkHandledButton.module.css";
 type Props = {
   callId: string;
   isHandled: boolean;
+  compact?: boolean;
 };
 
-export default function MarkHandledButton({ callId, isHandled }: Props) {
+export default function MarkHandledButton({ callId, isHandled, compact = false }: Props) {
   const [isPending, startTransition] = useTransition();
 
   function handleClick() {
@@ -22,7 +23,7 @@ export default function MarkHandledButton({ callId, isHandled }: Props) {
     <button
       onClick={handleClick}
       disabled={isPending}
-      className={`${styles.button} ${isHandled ? styles.unmark : styles.mark}`}
+      className={`${styles.button} ${isHandled ? styles.unmark : styles.mark} ${compact ? styles.compact : ""}`}
       aria-label={isHandled ? "Mark as not handled" : "Mark as handled"}
     >
       {isPending ? "Saving..." : isHandled ? "Unmark handled" : "Mark handled"}

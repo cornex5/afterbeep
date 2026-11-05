@@ -3,6 +3,7 @@ import type { CallSummary } from "@/lib/repository";
 import { relativeTime, isExpiringSoon, daysUntilExpiry, languageLabel } from "@/lib/ui";
 import type { Urgency } from "@/lib/schema";
 import CassetteReels from "./CassetteReels";
+import MarkHandledButton from "./MarkHandledButton";
 import styles from "./CassetteCard.module.css";
 
 type Props = {
@@ -30,11 +31,14 @@ export default function CassetteCard({ call, now }: Props) {
     >
       <Link
         href={`/dashboard/calls/${call.id}`}
-        className={styles.link}
+        className={styles.stretchedLink}
         aria-label={`Call from ${call.callerName}, ${time}${call.urgency === "high" ? ", urgent" : ""}`}
-      >
+      />
+
+      <div className={styles.cardBody}>
         <div className={styles.window}>
-          <CassetteReels size={32} />
+          <CassetteReels size={34} />
+          <div className={styles.tapeThread} aria-hidden="true" />
         </div>
 
         <div className={styles.label}>
@@ -46,24 +50,32 @@ export default function CassetteCard({ call, now }: Props) {
         </div>
 
         <div className={styles.strip}>
-          <span className={`${styles.time} mono`}>{time}</span>
-          {lang !== "English" && (
-            <span className={styles.langChip}>{lang}</span>
+          <div className={styles.stripMeta}>
+            <span className={`${styles.time} mono`}>{time}</span>
+            {lang !== "English" && (
+              <span className={styles.langChip}>{lang}</span>
+            )}
+            {call.urgency === "high" && (
+              <span className={styles.urgentBadge}>
+                <span className="visually-hidden">Urgent</span>
+                <span aria-hidden="true">urgent</span>
+              </span>
+            )}
+            {expiring && (
+              <span className={styles.expiryWarning}>
+                {daysLeft <= 0 ? "expires today" : `expires in ${daysLeft}d`}
+              </span>
+            )}
+            {handled && <span className={styles.handledBadge}>handled</span>}
+          </div>
+
+          {!handled && (
+            <div className={styles.actionArea}>
+              <MarkHandledButton callId={call.id} isHandled={false} compact />
+            </div>
           )}
-          {call.urgency === "high" && (
-            <span className={styles.urgentBadge}>
-              <span className="visually-hidden">Urgent</span>
-              <span aria-hidden="true">urgent</span>
-            </span>
-          )}
-          {expiring && (
-            <span className={styles.expiryWarning}>
-              {daysLeft <= 0 ? "expires today" : `expires in ${daysLeft}d`}
-            </span>
-          )}
-          {handled && <span className={styles.handledBadge}>handled</span>}
         </div>
-      </Link>
+      </div>
     </article>
   );
 }

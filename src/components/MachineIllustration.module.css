@@ -11,9 +11,9 @@
     transparent 40%
   );
   border-radius: 10px;
-  padding: 16px;
-  width: 100%;
-  max-width: 420px;
+  padding: 18px 16px 16px;
+  width: 420px;
+  max-width: 100%;
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -22,15 +22,16 @@
 
 .topBar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
   margin-bottom: 14px;
 }
 
 .brand {
   font-family: var(--font-display);
   font-variation-settings: "wdth" 125, "wght" 800;
-  font-size: 1rem;
+  font-size: 1.1rem;
   letter-spacing: 0.06em;
   text-transform: lowercase;
   color: var(--smoke);
@@ -39,16 +40,17 @@
 .ledArea {
   display: flex;
   align-items: center;
+  align-self: flex-end;
 }
 
 .deckWindow {
   background-color: var(--smoke);
   border-radius: 6px;
-  padding: 16px 20px;
+  padding: 18px 20px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 12px;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
 }

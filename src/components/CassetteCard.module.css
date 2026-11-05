@@ -5,6 +5,7 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
   transition: box-shadow var(--transition-slow), opacity var(--transition-slow);
   overflow: hidden;
+  position: relative;
 }
 
 .card:hover {
@@ -27,26 +28,48 @@
   opacity: 0.55;
 }
 
-.link {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  padding: 14px 16px 10px;
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--radius-card);
 }
 
-.link:focus-visible {
+.stretchedLink:focus-visible {
   outline: 2px solid var(--amber);
   outline-offset: -2px;
   border-radius: var(--radius-card);
 }
 
+.cardBody {
+  position: relative;
+  z-index: 1;
+  padding: 14px 16px 10px;
+  pointer-events: none;
+}
+
 .window {
   background-color: var(--smoke);
   border-radius: 3px;
-  padding: 8px 12px;
+  height: 40px;
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 0;
   margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tapeThread {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 2px;
+  background-color: color-mix(in srgb, var(--tape) 80%, transparent);
+  border-radius: 1px;
+  z-index: 0;
 }
 
 .label {
@@ -86,6 +109,14 @@
 }
 
 .strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stripMeta {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -131,7 +162,12 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: color-mix(in srgb, var(--smoke) 45%, transparent);
-  margin-left: auto;
+}
+
+.actionArea {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

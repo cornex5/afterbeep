@@ -4,9 +4,9 @@
 
 .segOn {
   fill: var(--amber);
-  filter: drop-shadow(0 0 3px var(--amber));
+  filter: drop-shadow(0 0 4px var(--amber)) drop-shadow(0 0 1px rgba(255, 177, 31, 0.9));
 }
 
 .segOff {
-  fill: color-mix(in srgb, var(--amber) 15%, transparent);
+  fill: rgba(255, 177, 31, 0.12);
 }
