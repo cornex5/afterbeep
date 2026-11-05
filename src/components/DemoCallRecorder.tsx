@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import CassetteReels from "./CassetteReels";
 import styles from "./DemoCallRecorder.module.css";
 import { downsample, floatTo16BitPCM, encodeWav } from "@/lib/wavEncoder";
@@ -48,6 +49,7 @@ function formatSeconds(s: number): string {
 }
 
 export default function DemoCallRecorder() {
+  const router = useRouter();
   const [state, setState] = useState<RecorderState>("idle");
   const [elapsed, setElapsed] = useState(0);
   const [message, setMessage] = useState("");
@@ -147,11 +149,13 @@ export default function DemoCallRecorder() {
         if (data.status === "delivered" || data.status === "extracted") {
           setState("done");
           setMessage("Done. Your message card is on the dashboard.");
+          router.refresh();
           return;
         }
         if (data.status === "transcription-failed" || data.status === "extraction-failed") {
           setState("done");
           setMessage("Processing finished. Check your dashboard for the result.");
+          router.refresh();
           return;
         }
       } catch {
@@ -161,7 +165,7 @@ export default function DemoCallRecorder() {
     };
 
     setTimeout(poll, POLL_INTERVAL_MS);
-  }, []);
+  }, [router]);
 
   const handleStop = useCallback(() => {
     stopTimer();
