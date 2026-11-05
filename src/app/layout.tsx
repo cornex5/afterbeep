@@ -1,4 +1,9 @@
 import type { ReactNode } from "react";
+import "@fontsource-variable/anybody";
+import "@fontsource-variable/instrument-sans";
+import "@fontsource-variable/jetbrains-mono";
+import "@fontsource/reenie-beanie";
+import "./globals.css";
 
 export const metadata = {
   title: "Afterbeep",

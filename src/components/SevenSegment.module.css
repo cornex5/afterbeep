@@ -1,0 +1,12 @@
+.digit {
+  display: block;
+}
+
+.segOn {
+  fill: var(--amber);
+  filter: drop-shadow(0 0 3px var(--amber));
+}
+
+.segOff {
+  fill: color-mix(in srgb, var(--amber) 15%, transparent);
+}

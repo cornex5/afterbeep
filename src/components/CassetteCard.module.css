@@ -1,0 +1,141 @@
+.card {
+  background-color: var(--putty);
+  border-radius: var(--radius-card);
+  border-left: 5px solid var(--tape);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: box-shadow var(--transition-slow), opacity var(--transition-slow);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+.edgeHigh {
+  border-left-color: var(--record);
+}
+
+.edgeNormal {
+  border-left-color: var(--amber);
+}
+
+.edgeLow {
+  border-left-color: var(--tape);
+}
+
+.handled {
+  opacity: 0.55;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 14px 16px 10px;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+  border-radius: var(--radius-card);
+}
+
+.window {
+  background-color: var(--smoke);
+  border-radius: 3px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.label {
+  background-color: var(--paper);
+  border-radius: 3px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border: 1px solid color-mix(in srgb, var(--tape) 30%, transparent);
+}
+
+.callerName {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--smoke);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reason {
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--tape);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.callbackNumber {
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--smoke) 65%, transparent);
+}
+
+.strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.time {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--smoke) 60%, transparent);
+}
+
+.langChip {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: color-mix(in srgb, var(--tape) 15%, transparent);
+  color: var(--tape);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.urgentBadge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: var(--record);
+  color: var(--paper);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.expiryWarning {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--record);
+}
+
+.handledBadge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--smoke) 45%, transparent);
+  margin-left: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
