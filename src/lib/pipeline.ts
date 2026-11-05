@@ -5,6 +5,10 @@ import { renderCardEmail } from "./email";
 import { FALLBACK_CARD } from "./schema";
 import type { AudioStore, CallStore, Clock, Mailer } from "./ports";
 
+function describeError(error: unknown): string {
+  return error instanceof Error ? error.message : "unknown error";
+}
+
 export type PipelineInput = {
   callId?: string;
   receivedAt?: Date;
@@ -50,7 +54,8 @@ export async function runPipeline(
 
   try {
     await audioStore.put(callId, input.audio);
-  } catch {
+  } catch (error) {
+    console.error("pipeline audio store put failed", describeError(error));
     await safeUpdateStatus(callStore, callId, "transcription-failed");
     await safeFailureEmail(
       mailer,
@@ -96,7 +101,8 @@ export async function runPipeline(
   let audio: Buffer;
   try {
     audio = await audioStore.get(callId);
-  } catch {
+  } catch (error) {
+    console.error("pipeline audio store get failed", describeError(error));
     await safeUpdateStatus(callStore, callId, "transcription-failed");
     await safeFailureEmail(
       mailer,
@@ -110,6 +116,7 @@ export async function runPipeline(
   const transcribeResult = await transcribeAudio(audio, ports.transcribeClient);
 
   if (!transcribeResult.ok) {
+    console.error("pipeline transcription failed", transcribeResult.error.message);
     await safeUpdateStatus(callStore, callId, "transcription-failed");
     await safeFailureEmail(
       mailer,
