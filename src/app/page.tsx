@@ -44,8 +44,8 @@ export default function LandingPage() {
           </p>
           <p>
             The completed card lands in your inbox within seconds, ready to
-            read. You can also review every card and listen to the original on
-            the dashboard.
+            read. You can also review every card and its transcript on the
+            dashboard. The audio itself is deleted once the card exists.
           </p>
         </div>
       </section>
@@ -76,6 +76,10 @@ export default function LandingPage() {
         <p>
           MIT license. Afterbeep is a Kiroween 2026 hackathon entry,
           Resurrection category.
+        </p>
+        <p>
+          Built by Jonas Klein, founder. Code on{" "}
+          <a href="https://github.com/cornex5/afterbeep">GitHub</a>.
         </p>
       </footer>
     </div>
