@@ -8,7 +8,7 @@ Built for Kiroween 2026, Resurrection category. MIT license.
 
 ## Try it
 
-Open the demo, click "Try the demo", and you get a private workspace with seeded cassettes. Press "Record a demo call", say who you are, your number and why you are calling, stop, and watch the card appear. Calls can be in English or German.
+Open the demo, click "Try the demo", and you get a private workspace with seeded cassettes. Press "Record a call", say who you are, your number and why you are calling, stop, and watch the card appear. Calls can be in English or German.
 
 ## How it works
 
@@ -16,7 +16,7 @@ Open the demo, click "Try the demo", and you get a private workspace with seeded
 2. Silence check on the PCM audio. Silent calls never reach the models.
 3. Speech to text through any Whisper compatible endpoint.
 4. Claude extracts a card against a zod schema. A callback number is only accepted if its digits appear in the transcript or the caller ID, so it can never be invented. On failure the card falls back to a safe default and the transcript is kept.
-5. The card is stored and mailed. Audio is deleted after processing, transcripts and cards expire after 30 days.
+5. The card is stored and mailed. Audio is deleted after processing, cards are hidden after 30 days (automatic deletion is next).
 
 `runPipeline` is pure orchestration. Storage, audio, mail and the clock are injected ports, which is why the whole pipeline is covered by tests, including a property test that it always ends in a terminal status.
 
@@ -50,7 +50,7 @@ Apply the SQL files in `supabase/migrations` in order. Row level security is on 
 
 ## Privacy
 
-Audio is deleted once the card exists. Transcripts and cards are kept 30 days, then expire. The caller hears a disclosure before recording. See `.kiro/steering/privacy.md`.
+Audio is deleted once the card exists. Cards are hidden after 30 days; automatic deletion of the stored rows is not built yet. With the phone line (not built yet), the caller will hear a disclosure before recording. See `.kiro/steering/privacy.md`.
 
 ## Built with Kiro
 

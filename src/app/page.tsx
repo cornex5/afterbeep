@@ -33,9 +33,9 @@ export default function LandingPage() {
         <h2>How it works</h2>
         <div className={styles.howSteps}>
           <p>
-            When a call comes in, Afterbeep picks up and plays a short
-            disclosure, then records the caller clearly while they leave their
-            message.
+            In this demo you record the call in your browser. With a phone
+            line (next step), Afterbeep will pick up, play a short disclosure
+            and record the caller while they leave their message.
           </p>
           <p>
             The recording is transcribed and sent to an AI that reads the words
